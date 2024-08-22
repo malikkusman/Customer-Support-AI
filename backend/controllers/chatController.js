@@ -79,7 +79,6 @@ const deleteAllChats = async (req, res) => {
   }
 };
 
-
 module.exports = {
   createChat,
   getAllChats,
