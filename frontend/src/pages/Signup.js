@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import bot2 from "/page-photos/robot-2.png";
+import  bot2  from "../components/page-photos/robot-2.png";
 
 import PageImage from "../components/auth/PageImage";
 import FormLabel from "../components/auth/FormLabel";
@@ -11,14 +9,15 @@ import Button from "../components/shared/Button";
 
 import styles from "./AuthForm.module.css";
 
+import { useAuth } from "../context/context";
+
 import axios from "axios";
+import toast from "react-hot-toast";
 axios.defaults.baseURL = "http://localhost:5001/api";
 axios.defaults.withCredentials = true; // Enable sending credentials (e.g., cookies) in cross-origin requests
 
-import { useAuth } from "../context/context";
-
-const Login = () => {
-    const [buttonName, setButtonName] = useState('Login');
+const Signup = () => {
+    const [buttonName, setButtonName] = useState("SignUp");
     const navigate = useNavigate();
     const auth = useAuth();
 
@@ -26,20 +25,22 @@ const Login = () => {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
+        const username = formData.get("username");
         const email = formData.get("email");
         const password = formData.get("password");
+        // const confirmPassword = formData.get("confirm-password");
 
         try {
-            setButtonName('Loading ...');
-            toast.loading("Signing in ..", { id: "login" });
-            await auth?.login(email, password);
-            setButtonName('Login');
-            toast.success("Signed in successfully", { id: "login" });
-            navigate('/chat');
+            setButtonName("Loading ...");
+            toast.loading("Signing up ..", { id: "signup" });
+            await auth?.signup(username, email, password);
+            setButtonName("SignUp");
+            toast.success("Account created and Logged In", { id: "signup" });
+            navigate('/login');
         } catch (error) {
-            setButtonName('Login');
-            toast.error(error.message, { id: "login" });
-            console.log(error, 'error');
+            setButtonName("SignUp");
+            toast.error(error.message, { id: "signup" });
+            console.log(error, "error");
         }
     };
 
@@ -53,8 +54,22 @@ const Login = () => {
                 />
             </div>
             <div>
-                <h2>Log Into Your Account </h2>
+                <h2>Create New Account</h2>
                 <form className={styles.form} onSubmit={handleSubmit}>
+                    <FormLabel
+                        className={styles.auth_label}
+                        htmlFor='username'
+                        id='username'
+                        name='username'
+                        type='text'
+                        required
+                        maxLength={25}
+                        minLength={2}
+                        label='Your Name'
+                        onChange={() => {}}
+                        inputPH='John Doe'
+                    />
+
                     <FormLabel
                         className={styles.auth_label}
                         htmlFor='email'
@@ -83,14 +98,32 @@ const Login = () => {
                         inputPH='Password'
                     />
 
-                    <Button buttonLabel={buttonName} type='submit' className={styles.button} />
+                    <FormLabel
+                        className={styles.auth_label}
+                        htmlFor='confirm-password'
+                        id='confirm-password'
+                        name='confirm-password'
+                        type='password'
+                        required
+                        maxLength={16}
+                        minLength={8}
+                        label='Confirm Password'
+                        onChange={() => {}}
+                        inputPH='Confirm Password'
+                    />
+
+                    <Button
+                        buttonLabel={buttonName}
+                        type='submit'
+                        className={styles.button}
+                    />
                 </form>
                 <p>
-                    Don't have an account? <Link to='/signup'>Create One</Link> now{" "}
+                    Already have an account? <Link to='/login'>Login</Link> now
                 </p>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Signup;

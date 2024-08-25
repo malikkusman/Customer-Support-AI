@@ -6,24 +6,28 @@ export const userLogin = async (email, password) => {
 		if (response.status !== 200) {
 			throw new Error();
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		throw new Error(`Error! Cannot Login. ${err.message}`);
 	}
 };
 
-export const userSignup = async (name, email, password) => {
+export const userSignup = async (
+	name,
+	email,
+	password
+) => {
 	try {
 		const response = await axios.post("/user/signup", {
 			name,
 			email,
 			password,
 		});
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
-		console.log(err);
+        console.log(err)
 		throw new Error(`Error! Cannot Signup. ${err.message}`);
 	}
 };
@@ -34,7 +38,7 @@ export const getAuthStatus = async () => {
 		if (response.status !== 200) {
 			throw new Error("Could not verify authentication status");
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		throw new Error(err.message);
@@ -49,7 +53,7 @@ export const postChatRequest = async (message) => {
 		if (response.status !== 200) {
 			throw new Error();
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		console.log(err);
@@ -63,7 +67,7 @@ export const getAllChats = async () => {
 		if (response.status !== 200) {
 			throw new Error();
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		console.log(err);
@@ -77,7 +81,7 @@ export const deleteAllChats = async () => {
 		if (response.status !== 200) {
 			throw new Error();
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		console.log(err);
@@ -91,7 +95,7 @@ export const logoutUser = async () => {
 		if (response.status !== 200) {
 			throw new Error();
 		}
-		const data = response.data;
+		const data = await response.data;
 		return data;
 	} catch (err) {
 		console.log(err);

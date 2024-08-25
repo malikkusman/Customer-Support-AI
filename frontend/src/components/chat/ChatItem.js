@@ -5,7 +5,7 @@ import rehypeHighlight from 'rehype-highlight';
 import styles from "./ChatItem.module.css";
 import 'highlight.js/styles/atom-one-dark.css';
 
-import botIcon from "/logos/bot.png";
+import botIcon from "../logos/bot.png";
 import { useAuth } from "../../context/context";
 
 const ChatItem = (props) => {

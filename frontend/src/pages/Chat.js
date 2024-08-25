@@ -8,11 +8,11 @@ import {
 	deleteAllChats,
 	getAllChats,
 	postChatRequest,
-} from "../../helpers/api-functions";
+} from "../helpers/api";
 
-import sendIcon from "/logos/send-icon.png";
-import noMsgBot from "/logos/no-msg2.png";
-import upArrow from "/logos/up-arrow.png";
+import sendIcon from "../components/logos/send-icon.png";
+import noMsgBot from "../components/logos/no-msg2.png";
+import upArrow from "../components/logos/up-arrow.png";
 import ChatLoading from "../components/chat/ChatLoading";
 
 import { useAuth } from "../context/context";
@@ -148,7 +148,7 @@ const Chat = () => {
 				className={styles.no_msg_logo}
 				variants={variants}
 				animate='animate'>
-				<img alt='no msg bot' src={noMsgBot} />
+				<img alt='no msg bot' src={noMsgBot}></img>
 			</motion.div>
 			<p>
 				It's quiet in here! Be the first to break the silence and send a message

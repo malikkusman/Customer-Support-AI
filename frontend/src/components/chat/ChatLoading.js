@@ -1,6 +1,6 @@
 import Spinner from "../shared/Spinner";
 import styles from "./ChatItem.module.css";
-import botIcon from "/logos/bot.png";
+import botIcon from "../logos/bot.png";
 
 const ChatLoading = () => {
 	return (
